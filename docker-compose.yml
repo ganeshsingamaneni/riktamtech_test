@@ -1,0 +1,37 @@
+version: "3.3"
+
+services:
+  usersmicroservice:
+     build: ./usersmicroservice
+     container_name: usersmicroservice
+     restart: always
+     expose:
+          - 5000
+     network_mode: "host"
+
+
+
+
+
+  groupsmicroservice:
+     build: ./groupsmicroservice
+     container_name: groupsmicroservice
+     restart: always
+     expose:
+          - 5001
+     network_mode: "host"
+  
+  messagemicroservice:
+     build: ./messagemicroservice
+     container_name: messagemicroservice
+     restart: always
+     expose:
+          - 5002
+     network_mode: "host"   
+
+
+
+
+
+
+  
