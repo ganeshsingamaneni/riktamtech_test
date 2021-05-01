@@ -6,8 +6,8 @@ from flask_restful import Api, Resource
 from sqlalchemy import exc
 import sqlalchemy.exc as sqlalchemy_exc
 from config import db
-from messagemicroservice.models.messages import Messages
-from messagemicroservice.schema import *
+from models.messages import Messages
+from schemas.messageschema import *
 
 from sqlalchemy import or_,and_
 
@@ -93,7 +93,6 @@ class UpdatemessageLikes(Resource):
             if obj is not None:
                 schema = MessagesSchema()
                 data = schema.dump(obj).data
-                print(data)
                 if data['userLikes'] is None:
                 
                     userlikes = [likes['userLikes']]
@@ -102,7 +101,6 @@ class UpdatemessageLikes(Resource):
                 else:
                     userlikes = data['userLikes']
                     userlikes.append(likes['userLikes']) 
-                print(userlikes)    
                 Messages.query.filter(Messages.id == id).update({"userLikes":userlikes})
                 db.session.commit()
                 obj = Messages.query.filter(Messages.id == id).first()

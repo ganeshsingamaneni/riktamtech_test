@@ -6,8 +6,8 @@ from flask_restful import Api, Resource
 from sqlalchemy import exc
 import sqlalchemy.exc as sqlalchemy_exc
 from config import db
-from groupsmicroservice.models.groups import Groups
-from groupsmicroservice.schema import *
+from models.groups import Groups
+from schemas.groupschema import *
 
 from sqlalchemy import or_,and_
 
@@ -68,7 +68,7 @@ class GetAddGroups(Resource):
 
 
 
-class GetUpdateGroup(Resource):
+class GetGroup(Resource):
     def __init__(self):
         pass
 
@@ -118,7 +118,8 @@ class AddGroupMembers(Resource):
         try:
             request_json_object = request.get_json()
             groupmemexist = db.session.query(GroupMembers).filter(and_(GroupMembers.userId == request_json_object['userId'],GroupMembers.groupId==request_json_object['groupId'])).one_or_none()
-            if groupmemexist is not None:
+            print(groupmemexist)
+            if groupmemexist is None:
                 memschema = AddGroupMemberschema()
                 new_GroupMem_obj = memschema.load(
                     request_json_object, session=db.session).data

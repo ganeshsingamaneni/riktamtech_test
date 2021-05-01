@@ -1,11 +1,11 @@
 import datetime
 from config import db
 from sqlalchemy.orm import validates
-from usersmicroservice.models.users import Users
-from groupsmicroservice.models.groups import Groups
+from models.users import Users
 
-class GroupMembers(db.Model):
-    __tablename__ = "groupmembers"
+
+class Groups(db.Model):
+    __tablename__ = "groups"
 
     """
     Represents  Users
@@ -13,14 +13,14 @@ class GroupMembers(db.Model):
     field id: Primary key
     type id: Integer
 
-    field groupId
-    type :Integer
+    field name
+    type :string
     
-    field userID
-    type: integer
-    
-    field isAdmin
+    field status
     type: boolean
+    
+    field createdBy
+    type: UserId
 
     field createdAt
     type: Datetime
@@ -30,9 +30,8 @@ class GroupMembers(db.Model):
 
     """
     id = db.Column(db.Integer, primary_key=True)
-    groupId = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=False)
-    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    isAdmin = db.Column(db.Boolean, default=False)
+    name = db.Column(db.String(220), nullable=False)
+    createdBy = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     status = db.Column(db.Boolean, default=True)
     createdAt = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     updatedAt = db.Column(db.DateTime, onupdate=datetime.datetime.utcnow)

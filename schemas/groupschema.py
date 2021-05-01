@@ -1,8 +1,8 @@
 from marshmallow import fields,Schema
 from config import ma, db
-from groupsmicroservice.models.groups import *
+from models.groups import *
 from marshmallow_sqlalchemy import ModelSchema
-from groupsmicroservice.models.group_members import *
+from models.group_members import *
 
 
 class GroupsSchema(ma.ModelSchema):

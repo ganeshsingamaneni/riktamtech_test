@@ -1,9 +1,9 @@
 version: "3.3"
 
 services:
-  usersmicroservice:
-     build: ./usersmicroservice
-     container_name: usersmicroservice
+  riktamtech_test:
+     build: ./riktamtech_test
+     container_name: riktamtech_test
      restart: always
      expose:
           - 5000
@@ -13,23 +13,7 @@ services:
 
 
 
-  groupsmicroservice:
-     build: ./groupsmicroservice
-     container_name: groupsmicroservice
-     restart: always
-     expose:
-          - 5001
-     network_mode: "host"
   
-  messagemicroservice:
-     build: ./messagemicroservice
-     container_name: messagemicroservice
-     restart: always
-     expose:
-          - 5002
-     network_mode: "host"   
-
-
 
 
 

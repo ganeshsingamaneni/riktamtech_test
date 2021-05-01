@@ -1,6 +1,6 @@
 from marshmallow import fields,Schema
 from config import ma, db
-from usersmicroservice.models.users import Users
+from models.users import Users
 from marshmallow_sqlalchemy import ModelSchema
 
 

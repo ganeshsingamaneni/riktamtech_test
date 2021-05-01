@@ -1,7 +1,7 @@
 from marshmallow import fields,Schema
 from config import ma, db
 from marshmallow_sqlalchemy import ModelSchema
-from messagemicroservice.models.messages import Messages
+from models.messages import Messages
 
 
 class MessagesSchema(ma.ModelSchema):

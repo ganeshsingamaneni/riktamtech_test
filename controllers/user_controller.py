@@ -1,19 +1,29 @@
 import datetime
 import os
-# import yaml
+import requests
 from flask import request
 from flask_restful import Api, Resource
-from sqlalchemy import exc
+from sqlalchemy import exc, and_
 import sqlalchemy.exc as sqlalchemy_exc
 from werkzeug.security import generate_password_hash
 from werkzeug.security import check_password_hash
 
 from config import db
-from usersmicroservice.models.users import Users
-from usersmicroservice.schema import *
+from models.users import Users
+from schemas.userschema import *
 
 
 
+
+class ServerTest(Resource):
+    def __init__(self):
+        pass
+
+    def get(self):
+        try:
+            return True
+        except Exception as e:
+            return False    
 
 
 
@@ -43,17 +53,21 @@ class GetAddUsers(Resource):
     def post(self):
         try:
             request_json_object = request.get_json()
-            request_json_object['password'] = generate_password_hash(
-                request_json_object['password'])
-            schema = AddUserSchema()
-            new_user_obj = schema.load(
-                request_json_object, session=db.session).data
-            db.session.add(new_user_obj)
-            db.session.commit()
-            data = schema.dump(new_user_obj).data
-            user_response = {
-                "success": True, "message": "User registered succeessfully", "data": data}
-            return (user_response)
+            check = db.session.query(Users).filter(and_(Users.userName == request_json_object['userName'],Users.email ==request_json_object['email'])).one_or_none()
+            if check is None:
+                request_json_object['password'] = generate_password_hash(
+                    request_json_object['password'])
+                schema = AddUserSchema()
+                new_user_obj = schema.load(
+                    request_json_object, session=db.session).data
+                db.session.add(new_user_obj)
+                db.session.commit()
+                data = schema.dump(new_user_obj).data
+                user_response = {
+                    "success": True, "message": "User registered succeessfully", "data": data}
+                return (user_response)
+            else:
+                 return {"success": True, "message": "User already exists"} 
         except KeyError as e :
             return({"success": False, "message": "Incorrect key name", "error":str(e.args)})
         except exc.IntegrityError as e:

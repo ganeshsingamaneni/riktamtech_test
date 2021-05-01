@@ -1,8 +1,8 @@
 import datetime
 from config import db
 from sqlalchemy.orm import validates
-from usersmicroservice.models.users import Users
-from groupsmicroservice.models.groups import Groups
+from models.users import Users
+from models.groups import Groups
 
 class Messages(db.Model):
     __tablename__ = "messages"
