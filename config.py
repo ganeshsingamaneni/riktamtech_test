@@ -3,7 +3,7 @@ from flask_restful import Api
 import os
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
-from flask_socketio import SocketIO
+# from flask_socketio import SocketIO
 
 
 # ma = Marshmallow(app) 
@@ -16,7 +16,7 @@ app = Flask(__name__)
 api = Api(app)
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-socketio = SocketIO(app, cors_allowed_origins="*")
+# socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 db = SQLAlchemy(app)
@@ -30,13 +30,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////"+workdir+"/development.db"
 
 app.config['SECRET_KEY'] = '3b8d7b303173189153979542'
 
-# app.config['JWT_SECRET_KEY'] = 'JwtAuthToken'
 
-# app.config['JWT_BLACKLIST_ENABLED'] = True
-
-# app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
-
-# jwt = JWTManager(app)
 
 ma = Marshmallow(app)
 

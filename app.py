@@ -32,9 +32,10 @@ def create_tables():
     db.create_all()
     db.session.commit()
 
-socket = socketio   
-
+# socket = socketio   
+host = '127.0.0.1'
+port = 5000
 
 
 if __name__=='__main__':
-    socket.run(app,host='0.0.0.0',debug=True)
+    app.run(host=host,port=port,debug=True)
